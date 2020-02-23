@@ -9,6 +9,13 @@ class DatabaseService {
 
   Future updateUserData(String name, int series, int repetitions,
       int difficulty, Timestamp date, bool completed) async {
-    return await exercisesCollection.document(uid);
+    return await exercisesCollection.document(uid).setData({
+      'name': name,
+      'series': series,
+      'repetitions': repetitions,
+      'difficulty': difficulty,
+      'date': date,
+      'completed': completed
+    });
   }
 }

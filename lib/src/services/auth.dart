@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:routetobeselfttaught/src/providers/user.dart';
+import 'package:routetobeselfttaught/src/services/database.dart';
 
 class AuthService {
 //Get properties to sign in,register, etc for Firebase auth
@@ -28,29 +30,41 @@ class AuthService {
       return null;
     }
   }
+
   // Sign in with email & pass
-Future signInWithEmailAndPassword(String email,String pass) async {
-  try {
-    AuthResult result = await _auth.signInWithEmailAndPassword(email: email, password: pass);
-    FirebaseUser user = result.user;
-    return _userFromFirebaseUser(user);
-  } catch (e) {
-    print(e.toString());
-    return null;
+  Future signInWithEmailAndPassword(String email, String pass) async {
+    try {
+      AuthResult result =
+          await _auth.signInWithEmailAndPassword(email: email, password: pass);
+      FirebaseUser user = result.user;
+      return _userFromFirebaseUser(user);
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
   }
-}
 
   // Register with email & pass
-Future registerWithEmailAndPassword(String email,String pass) async {
-  try {
-    AuthResult result = await _auth.createUserWithEmailAndPassword(email: email, password: pass);
-    FirebaseUser user = result.user;
-    return _userFromFirebaseUser(user);
-  } catch (e) {
-    print(e.toString());
-    return null;
+  Future registerWithEmailAndPassword(String email, String pass) async {
+    try {
+      AuthResult result = await _auth.createUserWithEmailAndPassword(
+          email: email, password: pass);
+      FirebaseUser user = result.user;
+      //Create a new document for the user with the uid
+      DateTime date = DateTime.now();
+      Timestamp time = Timestamp.fromDate(date);
+
+      print(date.toString());
+      print(time.toString());
+      print(time.toDate().toString());
+      await DatabaseService(uid: user.uid)
+          .updateUserData('new exercise', 3, 10, 1, time, false);
+      return _userFromFirebaseUser(user);
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
   }
-}
 
   //Sign out
   Future signOut() async {
