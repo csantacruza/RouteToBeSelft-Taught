@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:routetobeselfttaught/src/pages/Home/exercise_tile.dart';
 import 'package:routetobeselfttaught/src/providers/exercise.dart';
 
 class ExerciseList extends StatefulWidget {
@@ -14,17 +15,11 @@ class _ExerciseListState extends State<ExerciseList> {
 
 
     final exercises = Provider.of<List<Exercise>>(context);
-    if(exercises != null){
-    exercises.forEach((exercise) {
-      print(exercise.name);
-      print(exercise.dificulty);
-      print(exercise.date);
-      print(exercise.series);
-      print(exercise.repetitions);
-    });
-    }else{
-      print('exercisesList.dart - exercises = $exercises');
-    }
-    return Container();
+  
+    return ListView.builder(
+      itemCount: exercises.length,
+      itemBuilder: ((context,index){
+        return ExerciseTile(exercise: exercises[index]);
+      }));
   }
 }
