@@ -15,7 +15,8 @@ class _ExerciseListState extends State<ExerciseList> {
 
 
     final exercises = Provider.of<List<Exercise>>(context) ?? [];
-  
+    print('legth exercises: ${exercises.length}' );
+
     return ListView.builder(
       itemCount: exercises.length,
       itemBuilder: ((context,index){

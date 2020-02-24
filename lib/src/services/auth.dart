@@ -51,14 +51,10 @@ class AuthService {
           email: email, password: pass);
       FirebaseUser user = result.user;
       //Create a new document for the user with the uid
-      DateTime date = DateTime.now();
-      Timestamp time = Timestamp.fromDate(date);
-
-      print(date.toString());
-      print(time.toString());
-      print(time.toDate().toString());
-      await DatabaseService(uid: user.uid)
-          .updateUserData('new exercise', 3, 10, 1, time, false);
+      // DateTime date = DateTime.now();
+      // Timestamp time = Timestamp.fromDate(date);
+      // await DatabaseService(uid: user.uid)
+      //     .updateUserData('new exercise', 3, 10, 1, time, false,);
       return _userFromFirebaseUser(user);
     } catch (e) {
       print(e.toString());

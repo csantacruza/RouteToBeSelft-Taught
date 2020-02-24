@@ -5,7 +5,7 @@ import 'Generic/time.dart';
 class Exercise extends Activity<Exercise>{
 
 final String name;
-int dificulty;
+int difficulty;
 //if you try [Static] you $value will be in seconds
 //if you try [Quantity] you $value will be in numbers
 int repetitions;
@@ -16,8 +16,12 @@ String image;
 Time restTime;
 final DateTime date;
 bool completed;
+List<Exercise> predecessors;
+List<Exercise> successors;
 
-Exercise({this.completed,this.name,this.dificulty,this.date,
-this.series,this.repetitions});
+
+
+Exercise({this.completed,this.name,this.difficulty,this.date,
+this.series,this.repetitions,this.restTime,this.image,this.successors,this.predecessors});
 
 }

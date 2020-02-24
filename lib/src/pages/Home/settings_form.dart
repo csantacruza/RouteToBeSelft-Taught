@@ -84,13 +84,13 @@ class _SettingsFormState extends State<SettingsForm> {
                     ),
                     onPressed: () async {
                       if (_formKey.currentState.validate()) {
-                        await DatabaseService(uid: user.uid).updateUserData(
-                            _currentName ?? userData.name,
-                            _currentSeries ?? userData.series,
-                            _currentRepetitions ?? userData.repetitions,
-                            1 ?? 1,
-                            Timestamp.now(),
-                            false);
+                        // await DatabaseService(uid: user.uid).updateUserData(
+                        //     _currentName ?? userData.name,
+                        //     _currentSeries ?? userData.series,
+                        //     _currentRepetitions ?? userData.repetitions,
+                        //     1 ?? 1,
+                        //     Timestamp.now(),
+                        //     false);
                       }
                       Navigator.pop(context);
                     },

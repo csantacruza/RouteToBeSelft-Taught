@@ -25,34 +25,46 @@ class Home extends StatelessWidget {
       });
     }
 
-    
-    return StreamProvider<List<Exercise>>.value(
-      value: DatabaseService().exercises,
-      child: Scaffold(
-        backgroundColor: Colors.brown[50],
-        appBar: AppBar(
-          title: Text("Home page"),
-          backgroundColor: Colors.brown[400],
-          elevation: 0.0,
-          actions: <Widget>[
-            FlatButton.icon(
-              icon: Icon(Icons.person),
-              label: Text('Logout'),
-              onPressed: () async {
-                await _auth.signOut();
-              },
-            ),
-            FlatButton.icon(
-              icon: Icon(Icons.settings),
-              label: Text('Settings'),
-              onPressed: () => _showSettingsPanel(),
-            ),
-          ],
+    return MultiProvider(
+      providers: [
+        StreamProvider<List<Exercise>>.value(value: DatabaseService().exercises),
+      ], 
+        child: Scaffold(
+          backgroundColor: Colors.brown[50],
+          appBar: AppBar(
+            title: Text("Home page"),
+            backgroundColor: Colors.brown[400],
+            elevation: 0.0,
+            actions: <Widget>[
+              FlatButton.icon(
+                icon: Icon(Icons.person),
+                label: Text('Logout'),
+                onPressed: () async {
+                  await _auth.signOut();
+                },
+              ),
+              FlatButton.icon(
+                icon: Icon(Icons.settings),
+                label: Text('Settings'),
+                onPressed: () => _showSettingsPanel(),
+              ),
+            ],
+          ),
+          body: Container(
+            child: Stack(
+              alignment: AlignmentDirectional.bottomEnd,
+              children: <Widget>[
+                ExerciseList(),
+                FlatButton(
+                  padding: EdgeInsets.fromLTRB(300,30.0, 0, 0),
+                  child: Icon(Icons.add_box,color: Colors.pink,size: 50.0,),
+                  onPressed: () async {
+                    await DatabaseService().createExercise("andres", 3, 8, 1, DateTime.now(), false, null);
+                  },
+                ),
+              ],
+            )),
         ),
-        body: Container(
-          
-          child: ExerciseList()),
-      ),
     );
   }
 }
