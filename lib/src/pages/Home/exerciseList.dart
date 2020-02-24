@@ -14,7 +14,7 @@ class _ExerciseListState extends State<ExerciseList> {
   Widget build(BuildContext context) {
 
 
-    final exercises = Provider.of<List<Exercise>>(context);
+    final exercises = Provider.of<List<Exercise>>(context) ?? [];
   
     return ListView.builder(
       itemCount: exercises.length,

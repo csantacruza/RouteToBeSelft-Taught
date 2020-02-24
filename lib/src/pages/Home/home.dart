@@ -49,7 +49,9 @@ class Home extends StatelessWidget {
             ),
           ],
         ),
-        body: ExerciseList(),
+        body: Container(
+          
+          child: ExerciseList()),
       ),
     );
   }

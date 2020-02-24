@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:routetobeselfttaught/src/providers/exercise.dart';
+import 'package:routetobeselfttaught/src/providers/user.dart';
 
 class DatabaseService {
   final String uid;
@@ -34,9 +35,31 @@ class DatabaseService {
           }).toList();
   }
 
+  //userData from Snapshot
+  UserData _userDataFromSnapshot(DocumentSnapshot snapshot){
+    return UserData(
+      uid: uid,
+      name: snapshot.data['name'],
+      currentKnowledge: null,
+      exercises: null,
+      repetitions: snapshot.data['repetitions'],
+      series: snapshot.data['series']
+
+    );
+  }
+
   //Get exercises stream
   Stream<List<Exercise>> get exercises {
     return exercisesCollection.snapshots()
     .map(_exerciseListFromSnapshot);
   }
+
+  //get user doc stream
+  Stream<UserData> get userData{
+    return exercisesCollection.document(uid).snapshots()
+    .map(_userDataFromSnapshot);
+  }
+
+
+
 }
